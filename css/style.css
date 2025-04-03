@@ -1,0 +1,659 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* 色彩方案 */
+    --primary-color: #3498db; /* 主色 */
+    --secondary-color: #2c3e50; /* 辅色 */
+    --accent-color: #e74c3c; /* 强调色 */
+    --warning-color: #f39c12; /* 警示色 */
+    --success-color: #2ecc71; /* 成功色 */
+    --light-color: #f8f9fa; /* 浅色 */
+    --dark-color: #343a40; /* 深色 */
+    --text-color: #333; /* 文字颜色 */
+    
+    /* 字体大小层级 */
+    --font-size-xs: 0.75rem; /* 12px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-md: 1rem; /* 16px */
+    --font-size-lg: 1.25rem; /* 20px */
+    --font-size-xl: 1.5rem; /* 24px */
+    --font-size-xxl: 2rem; /* 32px */
+    
+    /* 间距 */
+    --spacing-xs: 0.25rem; /* 4px */
+    --spacing-sm: 0.5rem; /* 8px */
+    --spacing-md: 1rem; /* 16px */
+    --spacing-lg: 1.5rem; /* 24px */
+    --spacing-xl: 2rem; /* 32px */
+    
+    /* 过渡 */
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-color);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    color: var(--secondary-color);
+    font-size: var(--font-size-xxl);
+    position: relative;
+    padding-bottom: var(--spacing-md);
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: var(--font-size-md);
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 头部样式 */
+.header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.header__logo img {
+    height: 40px;
+}
+
+.header__menu {
+    display: flex;
+}
+
+.header__menu-item {
+    margin-left: var(--spacing-xl);
+}
+
+.header__menu-item a {
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    color: var(--secondary-color);
+    padding: var(--spacing-sm) 0;
+    position: relative;
+}
+
+.header__menu-item a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.header__menu-item a:hover::after,
+.header__menu-item a.active::after {
+    width: 100%;
+}
+
+.header__mobile-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.header__mobile-icon,
+.header__mobile-icon::before,
+.header__mobile-icon::after {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--secondary-color);
+    position: relative;
+    transition: var(--transition);
+}
+
+.header__mobile-icon::before,
+.header__mobile-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.header__mobile-icon::before {
+    top: -8px;
+}
+
+.header__mobile-icon::after {
+    bottom: -8px;
+}
+
+/* 移动菜单激活状态 */
+.header.mobile-menu-active .header__mobile-icon {
+    background-color: transparent;
+}
+
+.header.mobile-menu-active .header__mobile-icon::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.header.mobile-menu-active .header__mobile-icon::after {
+    transform: rotate(-45deg);
+    bottom: 0;
+}
+
+/* 主内容区域 */
+main {
+    padding-top: 80px; /* 为固定导航栏留出空间 */
+}
+
+/* Banner轮播 */
+.banner {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--spacing-xl);
+}
+
+.banner__slider {
+    position: relative;
+    height: 500px;
+}
+
+.banner__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.banner__slide.active {
+    opacity: 1;
+}
+
+.banner__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 80%;
+    z-index: 10;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner__title {
+    font-size: var(--font-size-xxl);
+    margin-bottom: var(--spacing-md);
+}
+
+.banner__text {
+    font-size: var(--font-size-lg);
+}
+
+.banner__controls {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.banner__prev,
+.banner__next {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.banner__prev:hover,
+.banner__next:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.banner__dots {
+    display: flex;
+    margin: 0 var(--spacing-md);
+}
+
+.banner__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 0 var(--spacing-xs);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.banner__dot.active,
+.banner__dot:hover {
+    background-color: white;
+}
+
+/* 公司简介 */
+.about {
+    padding: var(--spacing-xl) 0;
+}
+
+.about__card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.about__image {
+    flex: 1;
+    min-height: 400px;
+}
+
+.about__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about__content {
+    flex: 1;
+    padding: var(--spacing-xl);
+}
+
+.about__title {
+    font-size: var(--font-size-xl);
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.about__text {
+    margin-bottom: var(--spacing-md);
+}
+
+.about__btn {
+    margin-top: var(--spacing-md);
+}
+
+/* 服务项目 */
+.services {
+    padding: var(--spacing-xl) 0;
+    background-color: #f8f9fa;
+}
+
+.services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.services__item {
+    background-color: white;
+    padding: var(--spacing-xl);
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.services__item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.services__icon {
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.services__title {
+    font-size: var(--font-size-lg);
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.services__desc {
+    color: #666;
+}
+
+/* 留言板表单 */
+.message {
+    padding: var(--spacing-xl) 0;
+}
+
+.message__form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: var(--spacing-xl);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: var(--font-size-md);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.form-group.error input,
+.form-group.error textarea {
+    border-color: var(--accent-color);
+}
+
+.error-message {
+    color: var(--accent-color);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+    min-height: 20px;
+}
+
+.message__submit {
+    width: 100%;
+    position: relative;
+}
+
+.btn-loading {
+    display: none;
+}
+
+.message__submit.loading .btn-text {
+    visibility: hidden;
+}
+
+.message__submit.loading .btn-loading {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.message__success {
+    display: none;
+    padding: var(--spacing-md);
+    background-color: rgba(46, 204, 113, 0.1);
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+    border-radius: 4px;
+    margin-top: var(--spacing-md);
+    text-align: center;
+}
+
+/* 页脚 */
+.footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: var(--spacing-xl) 0;
+}
+
+.footer__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--spacing-xl);
+}
+
+.footer__logo {
+    height: 40px;
+    margin-bottom: var(--spacing-md);
+}
+
+.footer__info p {
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+}
+
+.footer h3 {
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-lg);
+    color: #eee;
+}
+
+.footer__links ul li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer__links ul li a:hover {
+    color: var(--primary-color);
+}
+
+.footer__social-icons {
+    display: flex;
+}
+
+.footer__social-icons a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--spacing-sm);
+    font-size: var(--font-size-lg);
+}
+
+.footer__social-icons a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .services__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .about__card {
+        flex-direction: column;
+    }
+    
+    .about__image,
+    .about__content {
+        flex: auto;
+        width: 100%;
+    }
+    
+    .banner__slider {
+        height: 400px;
+    }
+    
+    .banner__title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .footer__content {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .footer__info {
+        grid-column: span 2;
+        margin-bottom: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .header__nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .header.mobile-menu-active .header__nav {
+        max-height: 300px;
+    }
+    
+    .header__menu {
+        flex-direction: column;
+        padding: var(--spacing-md) 0;
+    }
+    
+    .header__menu-item {
+        margin: 0;
+        padding: var(--spacing-sm) var(--spacing-xl);
+    }
+    
+    .header__mobile-toggle {
+        display: block;
+    }
+    
+    .services__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .banner__slider {
+        height: 300px;
+    }
+    
+    .footer__content {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer__info {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --font-size-xxl: 1.75rem;
+        --font-size-xl: 1.25rem;
+    }
+    
+    .header__container {
+        height: 60px;
+    }
+    
+    .header__nav {
+        top: 60px;
+    }
+    
+    main {
+        padding-top: 60px;
+    }
+    
+    .banner__content {
+        width: 90%;
+    }
+    
+    .banner__title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .banner__text {
+        font-size: var(--font-size-md);
+    }
+    
+    .about__content,
+    .message__form {
+        padding: var(--spacing-md);
+    }
+} 

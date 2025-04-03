@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>企业官网首页</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="header">
+    <div class="container header__container">
+      <div class="header__logo">
+        <a href="index.html">
+          <img src="images/logo.png" alt="公司Logo">
+        </a>
+      </div>
+      <nav class="header__nav">
+        <ul class="header__menu">
+          <li class="header__menu-item"><a href="index.html" class="active">首页</a></li>
+          <li class="header__menu-item"><a href="about.html">关于我们</a></li>
+          <li class="header__menu-item"><a href="products.html">产品服务</a></li>
+          <li class="header__menu-item"><a href="message.html">留言板</a></li>
+          <li class="header__menu-item"><a href="admin/login.html">后台管理</a></li>
+        </ul>
+      </nav>
+      <div class="header__mobile-toggle">
+        <span class="header__mobile-icon"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 轮播Banner区 -->
+    <section class="banner">
+      <div class="banner__slider">
+        <div class="banner__slide active">
+          <img src="images/banner1.jpg" alt="Banner 1" class="banner__image">
+          <div class="banner__content">
+            <h2 class="banner__title">创新科技 引领未来</h2>
+            <p class="banner__text">提供优质产品与解决方案</p>
+          </div>
+        </div>
+        <div class="banner__slide">
+          <img src="images/banner2.jpg" alt="Banner 2" class="banner__image">
+          <div class="banner__content">
+            <h2 class="banner__title">专业团队 匠心服务</h2>
+            <p class="banner__text">致力于客户价值最大化</p>
+          </div>
+        </div>
+        <div class="banner__slide">
+          <img src="images/banner3.jpg" alt="Banner 3" class="banner__image">
+          <div class="banner__content">
+            <h2 class="banner__title">全球视野 本地智慧</h2>
+            <p class="banner__text">连接世界 服务中国</p>
+          </div>
+        </div>
+      </div>
+      <div class="banner__controls">
+        <button class="banner__prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="banner__dots">
+          <span class="banner__dot active" data-index="0"></span>
+          <span class="banner__dot" data-index="1"></span>
+          <span class="banner__dot" data-index="2"></span>
+        </div>
+        <button class="banner__next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- 公司简介卡片 -->
+    <section class="about">
+      <div class="container">
+        <h2 class="section-title">公司简介</h2>
+        <div class="about__card">
+          <div class="about__image">
+            <img src="images/about.jpg" alt="公司简介">
+          </div>
+          <div class="about__content">
+            <h3 class="about__title">我们的故事</h3>
+            <p class="about__text">我们是一家专注于创新科技的企业，成立于2010年，致力于为客户提供最优质的产品和服务解决方案。多年来，我们不断探索、创新，已成为行业内的领导者。</p>
+            <p class="about__text">公司拥有一支经验丰富、技术精湛的专业团队，始终以客户需求为中心，提供个性化的解决方案，帮助客户实现业务增长。</p>
+            <a href="about.html" class="btn about__btn">了解更多</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 服务项目展示 -->
+    <section class="services">
+      <div class="container">
+        <h2 class="section-title">服务项目</h2>
+        <div class="services__grid">
+          <div class="services__item">
+            <div class="services__icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3 class="services__title">软件开发</h3>
+            <p class="services__desc">提供定制化软件开发服务，包括企业管理系统、电子商务平台、移动应用等多种解决方案。</p>
+          </div>
+          <div class="services__item">
+            <div class="services__icon">
+              <i class="fas fa-cloud"></i>
+            </div>
+            <h3 class="services__title">云服务方案</h3>
+            <p class="services__desc">为企业提供安全、稳定、高效的云计算服务，助力企业数字化转型，降低IT运维成本。</p>
+          </div>
+          <div class="services__item">
+            <div class="services__icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="services__title">网络安全</h3>
+            <p class="services__desc">专业的网络安全解决方案，保护企业数据安全，防范网络威胁，确保业务连续性。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 留言板 -->
+    <section class="message">
+      <div class="container">
+        <h2 class="section-title">留言板</h2>
+        <form id="messageForm" class="message__form">
+          <div class="form-group">
+            <label for="name">姓名：</label>
+            <input type="text" id="name" name="name" maxlength="20" required>
+            <div class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="email">邮箱：</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="content">留言内容：</label>
+            <textarea id="content" name="content" rows="5" minlength="10" required></textarea>
+            <div class="error-message"></div>
+          </div>
+          <button type="submit" class="btn message__submit" id="submitBtn">
+            <span class="btn-text">提交留言</span>
+            <span class="btn-loading"><i class="fas fa-spinner fa-spin"></i></span>
+          </button>
+          <div class="message__success" id="successMessage">留言提交成功！</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__info">
+          <img src="images/logo.png" alt="公司Logo" class="footer__logo">
+          <p>© 2023 公司名称版权所有</p>
+          <p>地址：北京市朝阳区XX大厦</p>
+          <p>电话：010-12345678</p>
+        </div>
+        <div class="footer__links">
+          <h3>快速链接</h3>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="products.html">产品服务</a></li>
+            <li><a href="message.html">留言板</a></li>
+          </ul>
+        </div>
+        <div class="footer__social">
+          <h3>关注我们</h3>
+          <div class="footer__social-icons">
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fab fa-qq"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 引入 axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./js/api.js"></script>
+  <script src="./js/message.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

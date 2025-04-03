@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理员控制台</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* 后台管理样式 */
+    .admin-header {
+      background-color: var(--secondary-color);
+      padding: 15px 0;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .admin-header__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-title {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .admin-header__user {
+      display: flex;
+      align-items: center;
+    }
+
+    .admin-header__username {
+      margin-right: 15px;
+    }
+
+    .admin-logout {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .admin-logout:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .admin-container {
+      padding-top: 70px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .admin-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .admin-section__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .admin-section__title {
+      font-size: 1.25rem;
+      margin: 0;
+      color: var(--secondary-color);
+    }
+
+    /* 留言表格 */
+    .message-table-container {
+      overflow-x: auto;
+    }
+
+    .message-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .message-table th,
+    .message-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .message-table th {
+      background-color: #f8f9fa;
+      font-weight: 500;
+    }
+
+    .message-table tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    .message-table__sort {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .message-table__sort i {
+      margin-left: 5px;
+      opacity: 0.5;
+    }
+
+    .message-table__sort.active i {
+      opacity: 1;
+    }
+
+    .message-content {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .message-actions button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .message-actions button:hover {
+      background-color: #c0392b;
+    }
+
+    /* 工具栏 */
+    .message-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .message-search {
+      display: flex;
+      max-width: 300px;
+    }
+
+    .message-search input {
+      flex-grow: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .message-search button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+
+    /* 分页 */
+    .message-pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .message-pagination button {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .message-pagination button:hover {
+      background-color: #f5f5f5;
+    }
+
+    .message-pagination button.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .message-pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* 确认弹窗 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: var(--secondary-color);
+    }
+
+    .modal-body {
+      margin-bottom: 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-actions button {
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .modal-actions .cancel-btn {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+    }
+
+    .modal-actions .confirm-btn {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+    }
+
+    /* 空状态 */
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #ddd;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+
+      .message-table th:nth-child(3),
+      .message-table td:nth-child(3) {
+        display: none;
+      }
+
+      .message-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .message-search {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .admin-header__username {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 管理员头部 -->
+  <header class="admin-header">
+    <div class="container admin-header__container">
+      <h1 class="admin-title">留言管理系统</h1>
+      <div class="admin-header__user">
+        <span class="admin-header__username">管理员</span>
+        <button id="logoutBtn" class="admin-logout">退出登录</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    <section class="admin-section">
+      <div class="admin-section__header">
+        <h2 class="admin-section__title">留言管理</h2>
+      </div>
+
+      <div class="message-toolbar">
+        <div class="message-search">
+          <input type="text" id="searchInput" placeholder="搜索姓名或内容">
+          <button id="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="message-table-container">
+        <table class="message-table">
+          <thead>
+            <tr>
+              <th class="message-table__sort" data-sort="time">
+                提交时间 <i class="fas fa-sort-down"></i>
+              </th>
+              <th>姓名</th>
+              <th>邮箱</th>
+              <th>留言内容</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="messageTableBody">
+            <!-- 留言数据将由JavaScript动态生成 -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <i class="fas fa-inbox"></i>
+        <p>暂无留言数据</p>
+      </div>
+
+      <div id="messagePagination" class="message-pagination">
+        <!-- 分页控件将由JavaScript动态生成 -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 确认删除弹窗 -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <h3 class="modal-title">确认删除</h3>
+      <div class="modal-body">
+        <p>您确定要删除这条留言吗？此操作不可撤销。</p>
+      </div>
+      <div class="modal-actions">
+        <button id="cancelDeleteBtn" class="cancel-btn">取消</button>
+        <button id="confirmDeleteBtn" class="confirm-btn">确认删除</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 引入 axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- 改为普通脚本引入 -->
+  <script src="./js/admin.js"></script>
+</body>
+
+</html>
